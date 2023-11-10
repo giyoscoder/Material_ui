@@ -17,7 +17,13 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import NightlightIcon from "@mui/icons-material/Nightlight";
 
-const Sidebar = () => {
+const Sidebar = ({ setMode, mode }) => {
+  console.log(mode);
+  const darkModeHandler = () => {
+    setMode(mode == "light" ? "dark" : "light");
+    localStorage.setItem("mode", mode == "light" ? "dark" : "light");
+  };
+
   return (
     <Box flex={1} sx={{ display: { xs: "none", sm: "block" } }}>
       <Box position={"fixed"}>
@@ -76,16 +82,16 @@ const Sidebar = () => {
               <ListItemIcon>
                 <AccountBoxIcon />
               </ListItemIcon>
-              
+
               <ListItemText primary="Profile" />
             </ListItemButton>
           </ListItem>
-          <ListItem disablePadding>
-            <ListItemButton component="a" href="#simple-list">
+          <ListItem disablePadding >
+            <ListItemButton onClick={darkModeHandler}>
               <ListItemIcon>
                 <NightlightIcon />
               </ListItemIcon>
-              <Switch size="" defaultChecked />
+              <Switch checked={localStorage.getItem('mode') == 'dark'}   />
             </ListItemButton>
           </ListItem>
         </List>
